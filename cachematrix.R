@@ -6,15 +6,15 @@
 ## that can cache its inverse.
 
 makeCacheMatrix <- function(mtx = matrix()) {
-    inverse <- NULL
-    set <- function(x) {
+    matrix_inverse <- NULL
+    matrix_set <- function(x) {
         mtx <<- x;
-        inverse <<- NULL;
+        matrix_inverse <<- NULL;
     }
     get <- function() return(mtx);
-    setinv <- function(inv) inverse <<- inv;
-    getinv <- function() return(inverse);
-    return(list(set = set, get = get, setinv = setinv, getinv = getinv))
+    setinverse <- function(inv) matrix_inverse <<- inv;
+    getinverse <- function() return(matrix_inverse);
+    return(list(set = set, get = get, setinverse = setinverse, getinverse = getinverse))
 }
 
 ## This function computes the inverse of the special
@@ -23,13 +23,13 @@ makeCacheMatrix <- function(mtx = matrix()) {
 ## `cacheSolve` should retrieve the inverse from the cache.
 
 cacheSolve <- function(mtx, ...) {
-    inverse <- mtx$getinv()
-    if(!is.null(inverse)) {
+    inverse <- mtx$getinverse()
+    if(!is.null(matrix_inverse)) {
         message("Getting cached data...")
-        return(inverse)
+        return(matrix_inverse)
     }
     data <- mtx$get()
-    invserse <- solve(data, ...)
-    mtx$setinv(inverse)
-    return(inverse)
+    matrix_invserse <- solve(data, ...)
+    mtx$setinverse(matrix_inverse)
+    return(matrix_inverse)
 }
